@@ -19,7 +19,7 @@ KubeGoat is a deliberately vulnerable Kubernetes-based CTF (Capture The Flag) pr
 
 ### Installation
 
-git clone https://github.com/yourusername/KubeGoat.git
+git clone https://github.com/prabhu31297/KubeGoat.git
 cd KubeGoat
 
 # Build and start all services
