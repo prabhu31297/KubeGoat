@@ -1,0 +1,1 @@
+FLAG{kube_cis_unauthorized_access}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kubernetes Goat Lab</title>
+  <style>
+    body { background-color: #0e0e0e; color: #e0e0e0; font-family: Arial, sans-serif; text-align: center; padding: 5rem; }
+    h1 { font-size: 2.5rem; color: #00ffcc; }
+    p { font-size: 1.2rem; margin: 2rem auto; width: 60%; }
+    button {
+      font-size: 1.1rem;
+      padding: 1rem 2rem;
+      background-color: #00ffcc;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+    button:hover {
+      background-color: #00ddb3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kubernetes Goat Lab</h1>
+  <p>
+    Welcome to your private Kubernetes hacking lab. This system includes 10 real-world misconfigurations and vulnerabilities 
+    to help you practice container and cluster exploitation. Start by exploring the challenge list and solving one at a time.
+  </p>
+  <form action="{{ url_for('challenge_page') }}">
+    <button type="submit">Enter the Lab</button>
+  </form>
+</body>
+</html>

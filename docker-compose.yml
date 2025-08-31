@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  dashboard:
+    build: ./welcome
+    container_name: vuln-dashboard
+    ports:
+      - "10000:10000"
+    volumes:
+      - ./welcome:/app
+      - ./flags:/flags
+    working_dir: /app
+    command: python app.py
+    security_opt:
+      - apparmor=unconfined
+
+  challenge01:
+    build: ./challenges/01_sensitive_keys
+    container_name: challenge01
+    ports:
+      - "10001:5000"
+    security_opt:
+      - apparmor=unconfined
+
+  challenge02:
+    build: ./challenges/02_dind_escape
+    container_name: challenge02
+    ports:
+      - "10002:5000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    security_opt:
+      - apparmor=unconfined
+
+  challenge03:
+    build: ./challenges/03_ssrf_k8s
+    container_name: challenge03
+    ports:
+      - "10003:5000"
+    security_opt:
+      - apparmor=unconfined
+
+  challenge04:
+    build: ./challenges/04_container_escape
+    container_name: challenge04
+    ports:
+      - "10004:5000"
+    security_opt:
+      - apparmor=unconfined
+    privileged: true
+    volumes:
+      - ./host_files/ch04:/mnt/host_root:ro
+
+  challenge05:
+    build: ./challenges/05_docker_cis
+    container_name: challenge05
+    ports:
+      - "10005:5000"
+    security_opt:
+      - apparmor=unconfined
+    env_file:
+      - .env
+
+  challenge06:
+    build: ./challenges/06_k8s_cis
+    container_name: challenge06
+    ports:
+      - "10006:5000"
+    security_opt:
+      - apparmor=unconfined
+
+  challenge07:
+    build: ./challenges/07_private_registry
+    container_name: challenge07
+    ports:
+      - "10007:5000"
+    depends_on:
+      - private_registry
+    security_opt:
+      - apparmor=unconfined
+
+  private_registry:
+    image: registry:2
+    container_name: private_registry
+    ports:
+      - "5001:5000"
+    restart: always
+
+  challenge08:
+    build: ./challenges/08_nodeport_exposed
+    container_name: challenge08
+    ports:
+      - "10008:5000"
+    security_opt:
+      - apparmor=unconfined
+
+  challenge09:
+    build: ./challenges/09_hidden_layers
+    container_name: challenge09
+    ports:
+      - "10009:5000"
+    security_opt:
+      - apparmor=unconfined
+
+  challenge10:
+    build: ./challenges/10_rbac_misconfig
+    container_name: challenge10
+    ports:
+      - "10010:5000"
+    security_opt:
+      - apparmor=unconfined

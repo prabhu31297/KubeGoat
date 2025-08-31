@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Challenges - Kubernetes Goat Lab</title>
+  <style>
+    body { background-color: #101010; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 2rem; }
+    .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .card {
+      background-color: #1c1c1c;
+      border-left: 4px solid #00ffcc;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .card h2 { margin-top: 0; color: #00ffcc; }
+    .status { margin-top: 0.5rem; font-weight: bold; }
+    input[type=text] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 1rem;
+      background: #2e2e2e;
+      border: 1px solid #444;
+      border-radius: 5px;
+      color: #fff;
+    }
+    input[type=submit] {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #00ffcc;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .progress {
+      margin-bottom: 2rem;
+      font-size: 1.2rem;
+      color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+  <form action="{{ url_for('reset') }}">
+  <input type="submit" value="Reset Progress" style="background-color:#ff0040; color:#fff;">
+</form>
+
+  <div class="progress">{{ solved_count }}/10 Challenges Solved</div>
+  <div class="container">
+    {% for cid, (name, port) in challenges.items() %}
+    <div class="card">
+      <h2>Challenge {{ cid }}: {{ name }}</h2>
+      <p><strong>Access:</strong> <code>http://localhost:{{ port }}</code></p>
+      <p><strong>Hint:</strong> Inspect this service to find misconfigurations that leak sensitive information or offer privilege escalation vectors.</p>
+      <form method="POST">
+        <input type="hidden" name="challenge_id" value="{{ cid }}">
+        <input type="text" name="flag" placeholder="Enter FLAG{...}" required>
+        <input type="submit" value="Submit Flag">
+      </form>
+      <div class="status">{{ status[cid] }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
